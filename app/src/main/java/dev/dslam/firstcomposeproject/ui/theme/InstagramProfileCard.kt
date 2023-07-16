@@ -6,12 +6,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun InstagramProfileCard() {
@@ -32,29 +36,29 @@ fun InstagramProfileCard() {
                 .background(Color.Yellow)
                 .size(50.dp))
 
-            TwoBoxes()
-            TwoBoxes()
-            TwoBoxes()
+            UserStatistics("Posts", "6,950")
+            UserStatistics("Followers", "436M")
+            UserStatistics("Following", "76")
         }
     }
 
 }
 
 @Composable
-private fun TwoBoxes() {
+private fun UserStatistics(title: String, value: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Box(
-            modifier = Modifier
-                .background(Color.Yellow)
-                .size(25.dp)
+        Text(
+            text = value,
+            fontFamily = FontFamily.Cursive,
+            fontSize = 24.sp
         )
-        Box(
-            modifier = Modifier
-                .background(Color.Magenta)
-                .size(25.dp)
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            fontSize = 10.sp
         )
     }
 }
