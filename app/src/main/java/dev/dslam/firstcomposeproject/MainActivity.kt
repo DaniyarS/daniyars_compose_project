@@ -5,69 +5,57 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import dev.dslam.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 import dev.dslam.firstcomposeproject.ui.theme.InstagramProfileCard
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         setContent {
-            FirstComposeProjectTheme {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colors.background)
-                ) {
-                    TextTest()
-                    //InstagramProfileCard()
+            Test(viewModel = viewModel)
+        }
+    }
+}
+
+@Composable
+fun Test(viewModel: MainViewModel) {
+    FirstComposeProjectTheme {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background)
+        ) {
+            LazyColumn {
+                item { 
+                    Text(text = "ZAGALOVOK")
+                }
+                repeat(10) {
+                    item {
+                        InstagramProfileCard(viewModel)
+                    }
+                }
+                item {
+                    Image(painter = painterResource(id = R.drawable.ic_launcher_background), contentDescription = null)
+                }
+                repeat(200) {
+                    item {
+                        InstagramProfileCard(viewModel)
+                    }
                 }
             }
         }
-    }
-
-    @Preview
-    @Composable
-    fun TextTest() {
-        Box(
-            modifier = Modifier
-                .size(200.dp)
-                .background(Color.Black)
-        ) {
-            Image(
-                modifier = Modifier
-                    .background(Color.Blue)
-                    .padding(25.dp)
-                    .size(100.dp)
-                    .background(Color.Red),
-                painter = ColorPainter(Color.Yellow),
-                contentDescription = "",
-                contentScale = ContentScale.FillHeight
-            )
-        }
-
     }
 }
