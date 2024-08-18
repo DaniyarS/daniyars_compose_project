@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import dev.dslam.firstcomposeproject.ui.theme.FirstComposeProjectTheme
 import dev.dslam.firstcomposeproject.ui.theme.InstagramProfileCard
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
@@ -38,7 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun Test(viewModel: MainViewModel) {
@@ -50,8 +47,7 @@ fun Test(viewModel: MainViewModel) {
         ) {
             val models = viewModel.models.observeAsState(listOf())
 
-            LazyColumn(
-            ) {
+            LazyColumn {
                 items(models.value, key = { it.id }) { model ->
                     val dismissState = rememberDismissState()
 
